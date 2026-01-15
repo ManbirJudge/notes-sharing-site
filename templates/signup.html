@@ -1,0 +1,99 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block head %}
+    <script>
+        let pwdShown = false;
+
+        $(document).ready(() => {
+            const pwdToggleBtn = $("#pwdToggleBtn");
+            const pwdToggleBtnIcon = $("#pwdToggleBtn > i");
+            const pwdIn = $("#pwdIn");
+
+            pwdToggleBtn.on("click", evt => {
+                evt.preventDefault();
+                if (pwdShown) {
+                    pwdIn.attr("type", "password");
+                    pwdToggleBtnIcon.addClass("fa-eye-slash");
+                    pwdToggleBtnIcon.removeClass("fa-eye");
+                    pwdShown = false;
+                } else {
+                    pwdIn.attr("type", "text");
+                    pwdToggleBtnIcon.removeClass("fa-eye-slash");
+                    pwdToggleBtnIcon.addClass("fa-eye");
+                    pwdShown = true;
+                }
+            });
+        });
+    </script>
+    {% if error %}
+        <script>alert("Error while creating account.");</script>
+    {% endif %}
+{% endblock head %}
+
+{% block body %}
+<div class="container">
+    <div class="row my-2">
+        <div class="col-sm-6">
+            <h3 class="text-center">Already a user?</h3>
+            <hr />
+            <p>Login back to enjoy our services! 🙂</p>
+            <a href="{% url "login" %}" class="btn btn-primary"><span>Login</span></a>
+        </div>
+        <div class="col-sm-6">
+            <h2 class="text-center">Signup</h2>
+            <hr/>
+            <p>By creating an account on our website, you will be able to move through the notes, upload them, download them and use many more services.</p>
+            <hr/>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group mb-2">
+                    <label for="firstNameIn">First name</label>
+                    <input name="firstName" type="text" class="form-control" id="firstNameIn">
+                </div>
+                <div class="form-group mb-2">
+                    <label for="lastNameIn">Last name</label>
+                    <input name="lastName" type="text" class="form-control" id="lastNameIn">
+                </div>
+                <div class="form-group mb-2">
+                    <label for="contactNoIn">Contact number</label>
+                    <input name="contactNo" type="text" class="form-control" id="contactNoIn">
+                </div>
+                <div class="form-group mb-2">
+                    <label for="emailAddrIn">Email address</label>
+                    <input name="emailAddress" type="email" class="form-control" id="emailAddrIn" aria-describedby="emailAddrHelp">
+                    <small id="emailAddrHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="pwdIn">Password</label>
+                    <div class="input-group" id="show_hide_password">
+                        <input placeholder="Password here ..." class="form-control" name="password" id="pwdIn" type="password">
+                        <div class="input-group-append"><span id="pwdToggleBtn" class="input-group-text" style="cursor: pointer;"><i class="fa fa-eye-slash"></i></span></div>
+                    </div>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="branchSelect">Branch</label>
+                    <select name="branch" class="form-control" id="branchSelect">
+                        <option value="sst">SST</option>
+                        <option value="hindi">हिंदी</option>
+                        <option value="maths">Maths</option>
+                        <option value="gk">GK</option>
+                        <option value="computer">Computer</option>
+                        <option value="punjabi">ਪੰਜਾਬੀ</option>
+                        <option value="english">English</option>
+                        <option value="science">Science</option>
+                    </select>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="roleSelect">Role</label>
+                    <select name="role" class="form-control" id="roleSelect">
+                        <option value="student">Student</option>
+                        <option value="teacher">Teacher</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary mt-1">Signup</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock body %}

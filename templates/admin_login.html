@@ -1,73 +1,54 @@
-{% extends 'core.html' %}
+{% extends 'layout.html' %}
 {% load static %}
 
 {% block head %}
-    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'></script>
-
-    {% if error == "no" %}
+    {% if err %}
         <script>
-            console.log("Error is yes or no, not NONE")
-            alert("Logged in Succesfully");
-            window.location=("{% url 'admin_home' %}")
-        </script>
-    {% endif %}
-    {% if error == "yes" %}
-        <script>
-            console.log("Error is yes or no, not NONE")
-            alert("Error while logging in.\nThe reason could be invalid credentials.");
+            alert("Error while logging in:\n{{ err }}");
         </script>
     {% endif %}
 
-    {% if is_authenticated == "yes" %}
-    <script>
-        $(document).ready(() => {
-            $('.alert.alert-danger').show()
-        });
-    </script>
-    {% else %}
-    <script>
-        $(document).ready(() => {
-            $('.alert.alert-danger').hide()
-        });
-    </script>
+    {% if is_authenticated and not is_staff %}
+        <script>
+            alert("You are already logged in but not a staff member.");
+            navigation.navigate("/profile");
+        </script>
     {% endif %}
 {% endblock head %}
 
 {% block body %}
 <div class="container">
-    <div class="alert alert-danger mt-3 alert-dismissible fade show" role="alert">
-        You are Already <strong>Logged In</strong> as <strong>{{ user.username }}</strong>! Logging in Again will Not Effect Anything But you will be Logged Out From this Account.
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-6 mt-5">
-            <img src="{% static 'images/admin_login.jpg' %}" alt="" srcset="" class="img_thumbnail my-4" style="width: 100%; height: 345px;">
+    <div class="row py-2">
+        <div class="col-sm-6" style="position: relative;">
+            <img
+                src="{% static 'images/admin_login.jpg' %}"
+                alt="Admin login decorational image."
+                style="
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;"
+            >
         </div>
-        <div class="col-sm-6 my-5">
+        <div class="col-sm-6">
             <h2 class="text-center">Admin Login</h2>
             <hr /> 
-            <p>Enter your username and password to acess the admin panel.</p>
+            <p>Login here to access the admin panel.</p>
             <hr /> 
             <form method="POST">
                 {% csrf_token %}
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input placeholder="Enter your Username ..." type="text" class="form-control" id="username" aria-describedby="userNameHelp" name="username">
+                <div class="form-group mb-2">
+                    <label for="usernameIn">Username</label>
+                    <input placeholder="Enter your username ..." type="text" class="form-control" id="usernameIn" name="username">
                 </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input placeholder="Password here ..." type="password" class="form-control" id="password" name="password">
+                <div class="form-group mb-2">
+                    <label for="pwdIn">Password</label>
+                    <input placeholder="Password here ..." type="password" class="form-control" id="pwdIn" name="password">
                 </div>
-                <!-- 
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                    </div> 
-                -->
-                <button type="submit" class="btn btn-primary mt-2">Login</button>
+                <button type="submit" class="btn btn-primary mt-1">Login</button>
             </form>
         </div>
     </div>

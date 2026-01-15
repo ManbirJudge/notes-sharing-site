@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+{% load static %} 
+
+{% block head %}
+<style>
+    th, td {
+        text-align: center;
+        align-content: center;
+    }
+</style>
+{% endblock head %} 
+
+{% block body %}
+<div class="container py-2">
+    <h2 class="text-center mb-3">All Notes</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered md-2">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="align-middle">Sr. No.</th>
+                    <th class="align-middle">Upload Date</th>
+                    <th class="align-middle">Uploaded By</th>
+                    <th class="align-middle">Branch</th>
+                    <th class="align-middle">Topic</th>
+                    <th class="align-middle">File</th>
+                    <th class="align-middle">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for note in notes %}
+                    <tr>
+                        <td class="align-middle">{{ forloop.counter }}</td>
+                        <td class="align-middle">{{ note.upload_date }}</td>
+                        <td class="align-middle">{{ note.user.first_name }} {{ note.user.last_name }}</td>
+                        <td class="align-middle">{{ note.branch }}</td>
+                        <td class="align-middle">{{ note.subject }}</td>
+                        <td class="align-middle"><a role="button" class="btn btn-light btn-sml" href="{{ note.file.url }}" download>Download</a></td>
+                        <td>{{ note.description }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock body %}

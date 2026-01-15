@@ -1,83 +1,69 @@
-{% extends 'user_core.html' %}
+{% extends 'layout.html' %}
 {% load static %}
 
 {% block head %}
-<style>
-</style>
-
-{% if error == "no" %}
-<script>
-    alert("Notes Upload Succesfully");
-    window.location("{% url 'upload_notes' %}")
-</script>
-{% endif %}
-{% if error == "yes" %}
-<script>
-    alert("Error while Uploading Notes!");
-</script>
-{% endif %}
+    {% if err %}
+        <script>
+            alert("Error while uploading notes:\n{{ err }}");
+        </script>
+    {% else %}
+        {% if uploaded %}
+            <script>
+                alert("Notes uploaded successfully.");
+            </script>
+        {% endif %}
+    {% endif %}
 {% endblock head %}
 
 {% block body %}
 <div class="container">
-    <h2 class="text-center mt-4">Upload Notes</h2>
+    <h2 class="text-center mt-2">Upload Notes</h2>
     <hr />
-    <div class="row">
-        <div class="col-sm-6 mt-1 mb-4">
+    <div class="row pb-2">
+        <div class="col-sm-6">
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                <div class="form-group">
+                <div class="form-group mb-2">
                     <label for="branch">Branch</label>
                     <select name="branch" class="form-control" id="branch">
-                        <option value="SST">SST</option>
-                        <option value="hindi">Hindi</option>
+                        <option value="sst">SST</option>
+                        <option value="hindi">हिंदी</option>
                         <option value="maths">Maths</option>
                         <option value="gk">GK</option>
                         <option value="computer">Computer</option>
-                        <option value="punjabi">Punjabi</option>
+                        <option value="punjabi">ਪੰਜਾਬੀ</option>
                         <option value="english">English</option>
-                        <option value="scinece">Science</option>
+                        <option value="science">Science</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="subject">Subject ( Topic )</label>
-                    <input name="subject" placeholder="Enter Subject ( topic ) ..." type="text" class="form-control"
-                        id="subject">
+                <div class="form-group mb-2">
+                    <label for="topicIn">Topic</label>
+                    <input name="subject" type="text" class="form-control" id="topicIn">
                 </div>
-                <div class="form-group">
-                    <label for="file">File</label>
-                    <input name="file" type="file" class="form-control" id="file">
+                <div class="form-group mb-2">
+                    <label for="fileIn">File</label>
+                    <input name="file" type="file" class="form-control" id="fileIn">
                 </div>
-                <!-- <div class="form-group">
-                    <label for="file-group">File</label>
-                    <div class="input-group" id="file-group">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="file" id="file">
-                            <label class="custom-file-label" for="file">Choose Notes File ...</label>
-                        </div>
-                    </div>
-                </div> -->
-                <div class="form-group">
-                    <label for="file_type">File Type</label>
-                    <select name="file_type" class="form-control" id="file_type">
-                        <option value="PDF">Portable Document Format ( .pdf )</option>
-                        <option value="PPT">PowerPoint Animation ( .pptx, .ppt )</option>
-                        <option value="DOC">Word Document ( .docx, .doc ) </option>
-                        <option value="image">Image ( .jpg, .jpeg, .png, .tif, .gif )</option>
-                        <option value="text">Text File ( .txt ) </option>
-                        <option value="archive">Archives: ZIP, RAR ( .zip, .rar ) </option>
-                    </select>
+                <div class="form-group mb-2">
+                    <label for="descIn">Description</label>
+                    <textarea name="description" placeholder="(Optional)" type="text" class="form-control" id="descIn" rows=3></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea name="description" placeholder="Description Here ( Optional ) ( 🥱😴 ) ..." type="text" class="form-control"
-                        id="description" rows=3></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary mt-2">Upload</button>
+                <button type="submit" class="btn btn-primary mt-1">Upload</button>
             </form>
         </div>
-        <div class="col-sm-6 mb-1">
-            <img src="{% static 'images/notes_uploading.png' %}" alt="" srcset="" class="img_thumbnail my-4" style="width: 100%; height: 400px;">
+        <div class="col-sm-6" style="position: relative;">
+            <img
+                src="{% static 'images/notes_uploading.png' %}"
+                alt="Notes upload decorational image."
+                style="
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;"
+            >
         </div>
     </div>
 </div>

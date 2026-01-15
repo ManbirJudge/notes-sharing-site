@@ -1,89 +1,65 @@
-{% extends 'user_core.html' %}
+{% extends 'layout.html' %}
 {% load static %}
 
 {% block head %}
-    {% if error == "no" %}
     <script>
-        alert("Changes Saved ( Updated ) Successfully!");
-        window.location = ("{% url 'profile' %}")
+        $(document).ready(() => {
+            $("#branchSelect").val("{{ user_data.branch }}");
+        });
     </script>
-    {% endif %}
-    {% if error == "yes" %}
+    {% if error  %}
     <script>
-        alert("Error while Changing ( Updating ) Changes.");
+        alert("Error while updating profile.");
     </script>
     {% endif %}
 {% endblock head %}
 
 {% block body %}
-<div class="container mt-5">
+<div class="container my-2">
     <h2 class="text-center">Edit Profile</h2>
-    <hr />
-
+    <hr/>
     <div class="row">
         <div class="col-sm-6">
-            <form method="post">
+            <form method="POST">
                 {% csrf_token %}
                 <div class="form-row">
-                    <div class="form-group col-sm-6">
-                        <label for="first_name">First Name</label>
-                        <input class="form-control" value="{{user.first_name}}" type="text" name="firstName" id="first_name">
+                    <div class="form-group mb-2 col-sm-6">
+                        <label for="firstNameIn">First name</label>
+                        <input class="form-control" value="{{user.first_name}}" type="text" name="firstName" id="firstNameIn">
                     </div>
-                    <div class="form-group col-sm-6">
-                        <label for="last_name">Last Name</label>
-                        <input class="form-control" value="{{user.last_name}}" type="text" name="lastName" id="last_name">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label for="email_address">Email Address</label>
-                        <input readonly class="form-control" value="{{user.username}}" type="text" name="emailAddress" id="email_address">
+                    <div class="form-group mb-2 col-sm-6">
+                        <label for="lastNameIn">Last name</label>
+                        <input class="form-control" value="{{user.last_name}}" type="text" name="lastName" id="lastNameIn">
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label for="contact">Contact</label>
-                        <input class="form-control" value="{{user_data.contact}}" type="text" name="contactNo" id="contact">
+                    <div class="form-group mb-2 col-md-12">
+                        <label for="emailAddrIn">Email address</label>
+                        <input readonly class="form-control" value="{{user.username}}" type="text" name="emailAddress" id="emailAddrIn">
                     </div>
                 </div>
-                <!-- <div class="form-row">
-                    <div class="form-group col-ms-6">
-                        <label for="branch">Branch</label>
-                        <select name="branch" class="form-control" id="branch">
+                <div class="form-row">
+                    <div class="form-group mb-2 col-md-12">
+                        <label for="contactIn">Contact number</label>
+                        <input class="form-control" value="{{user_data.contact}}" type="text" name="contactNo" id="contactIn">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group mb-2 col-md-12">
+                        <label for="branchSelect">Branch</label>
+                        <select name="branch" class="form-control" id="branchSelect">
                             <option value="sst">SST</option>
-                            <option value="hindi">Hindi</option>
+                            <option value="hindi">हिंदी</option>
                             <option value="maths">Maths</option>
                             <option value="gk">GK</option>
                             <option value="computer">Computer</option>
-                            <option value="punjabi">Punjabi</option>
+                            <option value="punjabi">ਪੰਜਾਬੀ</option>
                             <option value="english">English</option>
-                            <option value="scinece">Science</option>
+                            <option value="science">Science</option>
                         </select>
-                    </div>
-                    <div class="form-group col-ms-6">
-                    </div>
-                </div> -->
-                <div class="form-row">
-                    <div class="form-group col-sm-6">
-                        <label for="branch">Branch</label>
-                        <select name="branch" class="form-control" id="branch">
-                            <option value="sst">SST</option>
-                            <option value="hindi">Hindi</option>
-                            <option value="maths">Maths</option>
-                            <option value="gk">GK</option>
-                            <option value="computer">Computer</option>
-                            <option value="punjabi">Punjabi</option>
-                            <option value="english">English</option>
-                            <option value="scinece">Science</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-sm-6">
-                        <label for="branch">Exsisting Branch</label>
-                        <input id="_branch" type="text" class="form-control" value="{{user_data.branch}}" readonly />
                     </div>
                 </div>
-
-                <button type="submit" class="btn btn-info mt-2">Save Changes ( Update )</button>
+                <button type="submit" class="btn btn-info mt-1">Save Changes</button>
             </form>
         </div>
     </div>

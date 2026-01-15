@@ -1,60 +1,60 @@
-{% extends 'admin_core.html' %}
+{% extends 'layout.html' %}
 {% load static %}
 
 {% block head %}
-<style>
-    .container_ {
-        background-color: #ededed;
-        border-radius: 8px;
-        padding: 15px 25px;
-        margin-top: 20px;
-        transition: all 0.2s ease-in-out;
-    }
-
-    .container_:hover {
-        transform: translateY(-10px);
-    }
-</style>
+{#<style>#}
+{#    .container_ {#}
+{#        background-color: #ededed;#}
+{#        border-radius: 8px;#}
+{#        padding: 15px 25px;#}
+{#        margin-top: 20px;#}
+{#        transition: all 0.2s ease-in-out;#}
+{#    }#}
+{##}
+{#    .container_:hover {#}
+{#        transform: translateY(-10px);#}
+{#    }#}
+{#</style>#}
 {% endblock head %}
 
 {% block body %}
-<div class="album py-5 bg-light" style="background-color: white !important;">
-    <div class="container">
-
-        <div class="row">
-            <div class="col-md-3 text-center text-primary">
-                <div class="container_">
-                    <h2>{{ all_notes_count }}</h2>
-                    <a href="{% url 'view_notes' %}" class="text-primary">
-                        <h4>Total Notes</h4>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-3 text-center text-warning">
-                <div class="container_">
-                    <h2>{{ pending_notes_count }}</h2>
-                    <a href="{% url 'view_pending_notes' %}" class="text-warning">
-                        <h4>Pending Notes</h4>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-3 text-center text-success">
-                <div class="container_">
-                    <h2>{{ accepted_notes_count }}</h2>
-                    <a href="{% url 'view_accepted_notes' %}" class="text-success">
-                        <h4>Accepted Notes</h4>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-3 text-center text-danger">
-                <div class="container_">
-                    <h2>{{ rejected_notes_count }}</h2>
-                    <a href="{% url 'view_rejected_notes' %}" class="text-danger">
-                        <h4>Rejected Notes</h4>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="py-2 container">
+    <p>Content coming soon ...</p>
+{#    <div class="container">#}
+{#        <div class="row">#}
+{#            <div class="col-md-3 text-center text-primary">#}
+{#                <div class="container_">#}
+{#                    <h2>{{ all_notes_count }}</h2>#}
+{#                    <a href="{% url 'verify_notes' %}" class="text-primary">#}
+{#                        <h4>Total Notes</h4>#}
+{#                    </a>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col-md-3 text-center text-warning">#}
+{#                <div class="container_">#}
+{#                    <h2>{{ pending_notes_count }}</h2>#}
+{#                    <a href="{% url 'view_pending_notes' %}" class="text-warning">#}
+{#                        <h4>Pending Notes</h4>#}
+{#                    </a>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col-md-3 text-center text-success">#}
+{#                <div class="container_">#}
+{#                    <h2>{{ accepted_notes_count }}</h2>#}
+{#                    <a href="{% url 'view_accepted_notes' %}" class="text-success">#}
+{#                        <h4>Accepted Notes</h4>#}
+{#                    </a>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col-md-3 text-center text-danger">#}
+{#                <div class="container_">#}
+{#                    <h2>{{ rejected_notes_count }}</h2>#}
+{#                    <a href="{% url 'view_rejected_notes' %}" class="text-danger">#}
+{#                        <h4>Rejected Notes</h4>#}
+{#                    </a>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
 </div>
 {% endblock body %}
