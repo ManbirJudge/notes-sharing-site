@@ -1,0 +1,105 @@
+{% extends 'core.html' %}
+{% load static %}
+
+{% block head %}
+    <style>
+        a,
+        a:hover {
+            cursor: pointer;
+            color: #333;
+            text-decoration: none;
+        }
+    </style>
+
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#show_hide_password a.input-group-text").on('click', function (event) {
+                event.preventDefault();
+                if ($('#show_hide_password input').attr("type") == "text") {
+                    $('#show_hide_password input').attr('type', 'password');
+                    $('#show_hide_password i').addClass("fa-eye-slash");
+                    $('#show_hide_password i').removeClass("fa-eye");
+                } else if ($('#show_hide_password input').attr("type") == "password") {
+                    $('#show_hide_password input').attr('type', 'text');
+                    $('#show_hide_password i').removeClass("fa-eye-slash");
+                    $('#show_hide_password i').addClass("fa-eye");
+                }
+            });
+        });
+    </script>
+
+    {% if error == "no" %}
+    <script>
+        alert("Logged in Succesfully");
+        window.location = ("{% url 'profile' %}");
+        console.log("no");
+    </script>
+    {% endif %}
+    {% if error == "yes" %}
+    <script>
+        alert("Error while logging in.\nThe reason could be invalid credentials.");
+        console.log("yes");
+    </script>
+    {% endif %}
+
+    {% if is_authenticated == "yes" %}
+    <script>
+        $(document).ready(() => {
+            $('.alert.alert-danger').show()
+        });
+    </script>
+    {% else %}
+    <script>
+        $(document).ready(() => {
+            $('.alert.alert-danger').hide()
+        });
+    </script>
+    {% endif %}
+{% endblock head %}
+
+{% block body %}
+<div class="container">
+    <div class="alert alert-danger mt-3 alert-dismissible fade show" role="alert">
+        You are Already <strong>Logged In</strong> as <strong>{{ user.username }}</strong>! Logging in Again will Not Effect Anything But you will be Logged Out From this Account.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6 mt-4">
+            <h2 class="text-center">New Customer</h2>
+            <hr />
+            <p>By creating an account with our website, you will be able to move through the notes upload, download and
+                much more services.</p>
+            <center><a href="{% url 'signup' %}" class="btn btn-primary mt-2"><span style="font-size: 20px;">Create Account</span></a></center>
+        </div>
+        <div class="col-sm-6 my-4">
+            <h2 class="text-center">Login Form</h2>
+            <hr />
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="emailAddress">Email address</label>
+                    <input placeholder="Enter your Email Address ..." type="email" class="form-control"
+                        name="emailAddress" id="emailAddress" aria-describedby="emailAddressHelp">
+                    <small id="emailAddressHelp" class="form-text text-muted">We'll never share your email with anyone
+                        else.</small>
+                </div>
+                <div class="form-group">
+                    <label for="show_hide_password">Password</label>
+                    <div class="input-group" id="show_hide_password">
+                        <input placeholder="Password Here ..." class="form-control" name="password" type="password">
+                        <div class="input-group-append">
+                            <a class="input-group-text"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Login</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock body %}

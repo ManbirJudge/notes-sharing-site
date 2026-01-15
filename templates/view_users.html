@@ -1,0 +1,73 @@
+{% extends 'admin_core.html' %} 
+{% load static %} 
+
+{% block head %}
+<style>
+    td {
+        text-transform: capitalize;
+    }
+</style>
+
+<scirpt type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></scirpt>
+<scirpt type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></scirpt>
+<scirpt type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></scirpt>
+
+<link rel="stylesheet" href="cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
+
+<script>
+    $(document).ready(function() {
+        $('#user-table').DataTable();
+    });
+</script>
+{% endblock head %} 
+
+{% block body %}
+<div class="container">
+    <h2 class="text-center my-4">Users</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered md-2" id="user-table">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="align-middle">Sr. No.</th>
+                    <th class="align-middle">Full Name</th>
+                    <th class="align-middle">Email Address</th>
+                    <th class="align-middle">Contact</th>
+                    <th class="align-middle">Branch</th>
+                    <th class="align-middle">Role</th>
+                    <th class="align-middle">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td class="align-middle">{{ forloop.counter }}</td>
+                    <td class="align-middle">
+                        {{ user.user.first_name }} {{ user.user.last_name }}
+                    </td>
+                    <td
+                        class="align-middle"
+                        style="text-transform: none !important"
+                    >
+                        {{ user.user.username }}
+                    </td>
+                    <td class="align-middle">{{ user.contact }}</td>
+                    <td class="align-middle">{{ user.branch }}</td>
+                    <td class="align-middle">{{ user.role }}</td>
+                    <td class="align-middle">
+                        <a
+                            role="button"
+                            class="btn btn-danger btn-sml"
+                            href="{% url 'delete_user' user.user.id %}"
+                            onclick="return confirm('Are you sure?')"
+                            >Delete</a
+                        >
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock body %}

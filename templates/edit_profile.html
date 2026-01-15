@@ -1,0 +1,91 @@
+{% extends 'user_core.html' %}
+{% load static %}
+
+{% block head %}
+    {% if error == "no" %}
+    <script>
+        alert("Changes Saved ( Updated ) Successfully!");
+        window.location = ("{% url 'profile' %}")
+    </script>
+    {% endif %}
+    {% if error == "yes" %}
+    <script>
+        alert("Error while Changing ( Updating ) Changes.");
+    </script>
+    {% endif %}
+{% endblock head %}
+
+{% block body %}
+<div class="container mt-5">
+    <h2 class="text-center">Edit Profile</h2>
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-6">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-sm-6">
+                        <label for="first_name">First Name</label>
+                        <input class="form-control" value="{{user.first_name}}" type="text" name="firstName" id="first_name">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="last_name">Last Name</label>
+                        <input class="form-control" value="{{user.last_name}}" type="text" name="lastName" id="last_name">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="email_address">Email Address</label>
+                        <input readonly class="form-control" value="{{user.username}}" type="text" name="emailAddress" id="email_address">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="contact">Contact</label>
+                        <input class="form-control" value="{{user_data.contact}}" type="text" name="contactNo" id="contact">
+                    </div>
+                </div>
+                <!-- <div class="form-row">
+                    <div class="form-group col-ms-6">
+                        <label for="branch">Branch</label>
+                        <select name="branch" class="form-control" id="branch">
+                            <option value="sst">SST</option>
+                            <option value="hindi">Hindi</option>
+                            <option value="maths">Maths</option>
+                            <option value="gk">GK</option>
+                            <option value="computer">Computer</option>
+                            <option value="punjabi">Punjabi</option>
+                            <option value="english">English</option>
+                            <option value="scinece">Science</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-ms-6">
+                    </div>
+                </div> -->
+                <div class="form-row">
+                    <div class="form-group col-sm-6">
+                        <label for="branch">Branch</label>
+                        <select name="branch" class="form-control" id="branch">
+                            <option value="sst">SST</option>
+                            <option value="hindi">Hindi</option>
+                            <option value="maths">Maths</option>
+                            <option value="gk">GK</option>
+                            <option value="computer">Computer</option>
+                            <option value="punjabi">Punjabi</option>
+                            <option value="english">English</option>
+                            <option value="scinece">Science</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="branch">Exsisting Branch</label>
+                        <input id="_branch" type="text" class="form-control" value="{{user_data.branch}}" readonly />
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-info mt-2">Save Changes ( Update )</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock body %}

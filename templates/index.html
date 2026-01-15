@@ -1,0 +1,122 @@
+{% extends 'core.html' %}
+{% load static %}
+
+{% block head %}
+<style>
+    .image {
+        width: 100%;
+        height: 470px;
+        background: url({% static 'images/home_slide_1.jpg' %});
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .transparent-box {
+        width: 100%;
+        height: 100%;
+        background-color: lightgray;
+        border: 1px solid #CD853F;
+        opacity: 0.6;
+    }
+
+    .transparent-box p {
+        margin-top: 10%;
+        font-weight: bold;
+        font-size: 60px;
+        font-family: sans-serif;
+        color: darkred;
+        text-align: center;
+    }
+
+    .step-icon {
+        margin-top: 22px !important;
+    }
+
+    .step-icon::before {
+        margin-top: 22px !important;
+    }
+
+    .box1 p {
+        font-weight: bold;
+        color: white;
+        font-family: sans-serif;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .half-circle-top {
+        height: 75px;
+        /* width: 150px; */
+        border-radius: 90px 90px 0 0;
+        background-color: green;
+        font-size: 40px;
+        margin: 0 0 0 0;
+    }
+
+    .half-circle-bottom {
+        height: 75px;
+        /* width: 150px; */
+        border-radius: 0 0 90px 90px;
+        background-color: lightgreen;
+        font-size: 16px;
+        padding-top: 10px;
+    }
+</style>
+{% endblock head %}
+
+{% block body %}
+<div class="image">
+    <div class="transparent-box">
+        <p>Notes Sharing Site</p>
+    </div>
+</div>
+
+<h4 class="text-center text-danger mt-5 ">Just 4 steps to follow</h4>
+
+<div class="album py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="box1">
+                    <p class="half-circle-top">
+                        <i class="step-icon fas fa-user-circle"></i>
+                    </p>
+                    <p class="half-circle-bottom">
+                        Create Account
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="box1">
+                    <p class="half-circle-top">
+                        <i class="step-icon bi bi-box-arrow-in-right"></i>
+                    </p>
+                    <p class="half-circle-bottom">
+                        Login
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="box1">
+                    <p class="half-circle-top">
+                        <i class="step-icon bi bi-cloud-arrow-up-fill"></i>
+                    </p>
+                    <p class="half-circle-bottom">
+                        Upload Notes
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="box1">
+                    <p class="half-circle-top">
+                        <i class="step-icon bi bi-cloud-arrow-down-fill"></i>
+                    </p>
+                    <p class="half-circle-bottom">
+                        Download Notes
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}
