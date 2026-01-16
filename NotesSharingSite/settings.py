@@ -8,11 +8,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJ_SECRET_KEY', 'ffffffffffffffffffffffffffffffffffffffffffffffffffff')
 DEBUG = os.environ.get('DEBUG') == 'True'
 
-ALLOWED_HOSTS = ['*'] if DEBUG else ['.render.com']
+RENDER_HOST = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_HOST:
+    ALLOWED_HOSTS = [RENDER_HOST]
+else:
+    ALLOWED_HOSTS = ['*']
 
-print( os.environ.get('DEBUG'))
-print(DEBUG)
-print(ALLOWED_HOSTS)
+print('Secret key:', SECRET_KEY)
+print('Debug:', os.environ.get('DEBUG'), DEBUG)
+print('Allowed hosts:', ALLOWED_HOSTS)
 
 # Application definition
 INSTALLED_APPS = [
@@ -61,13 +65,14 @@ WSGI_APPLICATION = 'NotesSharingSite.wsgi.application'
 
 
 # Database
-DATABASES = DATABASES = {
+DATABASES = {
     'default': dj_database_url.config(
         default=f'sqlite:///{BASE_DIR / "db.sqlite3"}',
         conn_max_age=600
     )
 }
 
+print(f'Databases: {DATABASES}')
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
