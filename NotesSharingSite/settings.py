@@ -5,18 +5,9 @@ import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('DJ_SECRET_KEY', 'ffffffffffffffffffffffffffffffffffffffffffffffffffff')
-DEBUG = os.environ.get('DEBUG') == 'True'
-
-RENDER_HOST = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-if RENDER_HOST:
-    ALLOWED_HOSTS = [RENDER_HOST]
-else:
-    ALLOWED_HOSTS = ['*']
-
-print('Secret key:', SECRET_KEY)
-print('Debug:', os.environ.get('DEBUG'), DEBUG)
-print('Allowed hosts:', ALLOWED_HOSTS)
+SECRET_KEY = 'ffffffffffffffffffffffffffffffffffffffffffffffffffff'
+DEBUG = True
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 INSTALLED_APPS = [
@@ -106,7 +97,7 @@ USE_TZ = True
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# -------------- Added by me --------------
+# -------------- added by me --------------
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     Path.joinpath(BASE_DIR, 'static'),
